@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Property {
+  id                Int      @id @default(autoincrement())
+  title            String
+  type             String
+  bedrooms         Int
+  bathrooms        Int
+  area             Int
+  rent             Int
+  location         String
+  pinCode          String
+  nearbyPlaces     String[]
+  youtubeLink      String?
+  availableFrom    DateTime
+  ownerWhatsApp    String
+  facilities       String[]
+  tenantPreferences String[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  status           String   @default("pending") // pending, approved, rejected
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  role      String   @default("user") // user, admin
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
